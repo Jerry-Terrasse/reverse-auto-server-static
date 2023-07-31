@@ -190,7 +190,6 @@ function add_submit_button(editor) {
   submit_button.addEventListener("click", () => {
     var task_id = $("#task_id").val();
     var data = editor.getValue();
-    data.pas = data.pass;
     $.ajax({
       url: "/update_task?" + $.param({ task_id: task_id }),
       method: "POST",
