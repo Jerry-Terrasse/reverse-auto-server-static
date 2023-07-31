@@ -180,3 +180,45 @@ function apply_theme() {
   mdui.mutation();
   mdui.updateTables();
 }
+
+function add_submit_button(editor) {
+  var header = $(".je-header")[0];
+  var submit_button = document.createElement("button");
+  decorate_button(submit_button);
+  submit_button.classList.add("ras-submit-btn");
+  submit_button.innerHTML = "保存";
+  submit_button.addEventListener("click", () => {
+    var task_id = $("#task_id").val();
+    var data = editor.getValue();
+    data.pas = data.pass;
+    $.ajax({
+      url: "/update_task?" + $.param({ task_id: task_id }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify(data),
+    }).done(function (res) {
+      console.log(res);
+      if (res.success) {
+        mdui.snackbar({
+          message: "保存成功",
+          timeout: 2000,
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 500);
+      } else {
+        mdui.snackbar({
+          message: res.detail,
+          timeout: 2000,
+        });
+      }
+    }).fail(function (res) {
+      console.log(res);
+      mdui.snackbar({
+        message: res.detail,
+        timeout: 2000,
+      });
+    });
+  });
+  $(submit_button).insertAfter(header);
+}
