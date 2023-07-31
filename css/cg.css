@@ -245,3 +245,31 @@ li {
 .mdui-overlay {
   background: rgba(0, 0, 0, .7);
 }
+
+/* For JSON Editor */
+
+/* .row .mdui-row {
+  margin-left: 200px;
+} */
+
+.row {
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+.mdui-switch-icon {
+  margin-right: 1em;
+}
+
+.mdui-btn,
+[class*="json-editor-btntype-"] {
+  margin: 0 0.5em 0.5em 0;
+}
+
+.mdui-container, .ras-table-container {
+  margin-left: 1em;
+}
+
+.mdui-table {
+  margin-bottom: 1em;
+}
