@@ -170,7 +170,7 @@ function apply_theme() {
 
     var father = tables[i].parentNode;
     father.classList.remove("je-indented-panel");
-    father.classList.add("mdui-container");
+    father.classList.add("mdui-container-fluid");
     father.classList.add("ras-table-container");
   }
 
@@ -221,4 +221,35 @@ function add_submit_button(editor) {
     });
   });
   $(submit_button).insertAfter(header);
+}
+
+function set_energy() {
+  var energy = $("#energy").val();
+  if(energy == "") {
+    return;
+  }
+  var energy = Number(energy);
+  if(isNaN(energy)) {
+    return;
+  }
+  $.get(
+    "/set_energy",
+    { task_id: $("#task_id").val(), energy: energy },
+    function (res) {
+      if (res.success) {
+        mdui.snackbar({
+          message: "更新成功",
+          timeout: 2000,
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 500);
+      } else {
+        mdui.snackbar({
+          message: res.detail,
+          timeout: 2000,
+        });
+      }
+    }
+  );
 }
